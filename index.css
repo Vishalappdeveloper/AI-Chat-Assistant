@@ -1,0 +1,402 @@
+:root {
+  --light-bg: #f8f9fa; /* Slightly off-white */
+  --dark-bg: #1f1f1f; /* Darker grey */
+  --light-surface: #ffffff;
+  --dark-surface: #2c2c2e; /* Slightly lighter dark surface */
+  --light-text-primary: #202124;
+  --dark-text-primary: #e8eaed;
+  --light-text-secondary: #5f6368;
+  --dark-text-secondary: #bdc1c6;
+  
+  --light-primary: #1a73e8; /* Google Blue */
+  --dark-primary: #8ab4f8; /* Lighter Google Blue for dark mode */
+  --light-primary-hover: #1765cf; /* Darker hover for light */
+  --dark-primary-hover: #a1c5f8; /* Lighter hover for dark */
+
+  --light-border: #dfe1e5; /* Softer border */
+  --dark-border: #4a4a4f; /* Softer dark border */
+  
+  --light-error: #d93025;
+  --dark-error: #f28b82;
+  --light-error-bg-soft: #fce8e6;
+  --dark-error-bg-soft: #4d2a26;
+  
+  --light-disabled-bg: #f1f3f4;
+  --dark-disabled-bg: #3c4043;
+  --light-disabled-text: #bdc1c6;
+  --dark-disabled-text: #7f8184;
+  
+  --shadow-color-rgb: 60, 64, 67; /* For opacity usage */
+  --dark-shadow-color-rgb: 0, 0, 0;
+
+  --light-focus-shadow-color: rgba(var(--shadow-color-rgb), 0.2);
+  --dark-focus-shadow-color: rgba(138, 180, 248, 0.3);
+  --light-button-focus-shadow-color: rgba(var(--shadow-color-rgb), 0.3);
+  --dark-button-focus-shadow-color: rgba(138, 180, 248, 0.4);
+
+  --light-button-text: white;
+  --dark-button-text: #202124; /* Dark text for light primary buttons */
+
+  --light-user-message-bg: var(--light-primary);
+  --dark-user-message-bg: var(--dark-primary);
+  --light-user-message-text: var(--light-button-text);
+  --dark-user-message-text: var(--dark-button-text);
+
+  --light-ai-message-bg: #f1f3f4; /* Lighter grey for AI messages */
+  --dark-ai-message-bg: #38393c; /* Darker, distinct AI message bg */
+  --light-ai-message-text: var(--light-text-primary);
+  --dark-ai-message-text: var(--dark-text-primary);
+
+  /* Using Prism's Okaidia for code blocks, but can override some aspects */
+  --light-code-bg: #fdf6e3; /* Solarized light like for contrast if not using Okaidia fully */
+  --dark-code-bg: #2d2d2d; /* Okaidia is already dark, this is fallback/general pre */
+  --light-code-text: #657b83;
+  --dark-code-text: #f8f8f2; /* Okaidia text */
+  
+  --light-copy-button-bg: #e8eaed;
+  --dark-copy-button-bg: #4f5255;
+  --light-copy-button-text: var(--light-text-secondary);
+  --dark-copy-button-text: var(--dark-text-secondary);
+  --light-copy-button-hover-bg: #dadce0;
+  --dark-copy-button-hover-bg: #5f6367;
+
+  --light-inline-code-bg: rgba(var(--shadow-color-rgb),0.08);
+  --dark-inline-code-bg: rgba(255,255,255,0.12);
+  --light-blockquote-border: #ced4da;
+  --dark-blockquote-border: #5a5a5f;
+  --light-blockquote-bg: rgba(var(--shadow-color-rgb),0.03);
+  --dark-blockquote-bg: rgba(255,255,255,0.04);
+}
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+  margin: 0;
+  background-color: light-dark(var(--light-bg), var(--dark-bg));
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary));
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  padding: 15px;
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: light-dark(var(--light-surface), var(--dark-surface));
+  padding: 20px 25px; 
+  border-radius: 16px; /* Softer radius */
+  box-shadow: 0 2px 4px rgba(var(--shadow-color-rgb), light-dark(0.1, 0.2)),
+              0 8px 16px rgba(var(--shadow-color-rgb), light-dark(0.1, 0.2));
+  width: 95%;
+  max-width: 850px; /* Slightly wider */
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 70px); 
+  max-height: 950px; 
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid light-dark(var(--light-border), var(--dark-border));
+}
+
+.app-header h1 {
+  color: light-dark(var(--light-primary), var(--dark-primary));
+  font-size: 1.7em; 
+  font-weight: 500;
+  margin: 0;
+}
+
+#clearChatButton {
+  background-color: transparent;
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  border: 1px solid light-dark(var(--light-border),var(--dark-border));
+  padding: 6px 12px;
+  border-radius: 18px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+#clearChatButton:hover {
+  background-color: light-dark(rgba(var(--shadow-color-rgb), 0.05), rgba(255,255,255,0.08));
+  color: light-dark(var(--light-primary), var(--dark-primary));
+  border-color: light-dark(var(--light-primary), var(--dark-primary));
+}
+
+
+.chat-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px 10px; /* More padding */
+  margin-bottom: 15px;
+  background-color: light-dark(var(--light-bg), var(--dark-bg)); 
+  border-radius: 8px;
+}
+
+.message {
+  margin-bottom: 15px; /* Increased spacing */
+  padding: 12px 18px; /* More padding */
+  border-radius: 20px; /* Softer radius */
+  max-width: 80%; /* Slightly wider max */
+  word-wrap: break-word;
+  line-height: 1.55;
+  animation: fadeInSlideUp 0.3s ease-out forwards;
+  box-shadow: 0 1px 2px rgba(var(--shadow-color-rgb), light-dark(0.08, 0.15));
+}
+
+.message .markdown-content > *:first-child,
+.message p:first-child {
+  margin-top: 0;
+}
+.message .markdown-content > *:last-child,
+.message p:last-child {
+  margin-bottom: 0;
+}
+
+.message-user {
+  background-color: light-dark(var(--light-user-message-bg), var(--dark-user-message-bg));
+  color: light-dark(var(--light-user-message-text), var(--dark-user-message-text));
+  margin-left: auto;
+  border-bottom-right-radius: 6px; /* Sharper corner for speech bubble feel */
+}
+
+.message-ai {
+  background-color: light-dark(var(--light-ai-message-bg), var(--dark-ai-message-bg));
+  color: light-dark(var(--light-ai-message-text), var(--dark-ai-message-text));
+  margin-right: auto;
+  border-bottom-left-radius: 6px;
+}
+
+.message.message-error {
+  background-color: light-dark(var(--light-error-bg-soft), var(--dark-error-bg-soft));
+  border-left: 5px solid light-dark(var(--light-error), var(--dark-error));
+  color: light-dark(var(--light-error), var(--dark-error));
+  box-shadow: 0 1px 2px rgba(var(--light-error), 0.2);
+}
+.message.message-error .markdown-content,
+.message .markdown-content.error-text {
+  color: light-dark(var(--light-error), var(--dark-error)) !important;
+}
+.message.message-error .markdown-content a {
+    color: light-dark(var(--light-error), var(--dark-error)) !important;
+    text-decoration: underline;
+}
+
+.message .generated-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px; /* Softer radius for images */
+  margin-top: 10px;
+  display: block; 
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
+}
+
+.markdown-content p {
+  line-height: 1.6; margin-top: 0.5em; margin-bottom: 0.5em;
+}
+.markdown-content ul, .markdown-content ol {
+  margin-top: 0.5em; margin-bottom: 0.5em; padding-left: 1.8em;
+}
+.markdown-content li { margin-bottom: 0.4em; }
+.markdown-content strong { font-weight: 600; }
+.markdown-content em { font-style: italic; }
+.markdown-content blockquote {
+  margin: 1em 0; padding: 0.6em 1.2em;
+  border-left: 5px solid light-dark(var(--light-blockquote-border), var(--dark-blockquote-border));
+  background-color: light-dark(var(--light-blockquote-bg), var(--dark-blockquote-bg));
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  border-radius: 0 6px 6px 0;
+}
+.markdown-content blockquote p:last-child { margin-bottom: 0; }
+.markdown-content code:not([class*="language-"]) { /* Inline code */
+  background-color: light-dark(var(--light-inline-code-bg), var(--dark-inline-code-bg));
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary)); /* Ensure contrast */
+  padding: 0.25em 0.5em; border-radius: 4px; font-size: 0.88em;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
+}
+.markdown-content a {
+  color: light-dark(var(--light-primary), var(--dark-primary)); text-decoration: none; font-weight: 500;
+}
+.markdown-content a:hover { text-decoration: underline; }
+.markdown-content hr {
+  border: none; border-top: 1px solid light-dark(var(--light-border), var(--dark-border)); margin: 1.2em 0;
+}
+.markdown-content h1, .markdown-content h2, .markdown-content h3, 
+.markdown-content h4, .markdown-content h5, .markdown-content h6 {
+  margin-top: 1.2em; margin-bottom: 0.6em; font-weight: 600; line-height: 1.3;
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary)); /* Ensure heading color */
+}
+.markdown-content h1 { font-size: 1.6em; border-bottom: 1px solid light-dark(var(--light-border), var(--dark-border)); padding-bottom: 0.3em;}
+.markdown-content h2 { font-size: 1.4em; }
+.markdown-content h3 { font-size: 1.2em; }
+
+
+/* Prism.js Okaidia theme usually handles its own background/text, but we can ensure padding etc. */
+.message pre {
+  /* background-color set by Okaidia via inline styles from Prism */
+  padding: 1em; /* More padding */
+  padding-top: 3em; /* Ensure space for copy button */
+  border-radius: 8px; /* Softer radius */
+  overflow-x: auto;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+  font-size: 0.9em;
+  margin: 10px 0;
+  position: relative; 
+  border: 1px solid light-dark(var(--dark-border), var(--dark-border)); /* Okaidia is dark, so dark border */
+}
+/* Ensure text color within code blocks is handled by Prism theme or defaults well */
+.message pre code[class*="language-"] {
+  /* color: var(--dark-code-text); Text color usually set by Prism theme */
+  background: none !important; /* Important to override potential pre background setting */
+}
+
+.copy-code-button {
+  position: absolute;
+  top: 8px; /* Adjusted positioning */
+  right: 8px;
+  padding: 5px 10px;
+  /* background-color directly from Prism's theme's style for better integration or a neutral one */
+  background-color: #3e3e3e; /* Neutral dark for Okaidia */
+  color: #ccc; /* Light text for dark button */
+  border: 1px solid #555;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.8em;
+  opacity: 0.6; /* Initially less intrusive */
+  transition: all 0.2s ease-in-out;
+}
+.message pre:hover .copy-code-button {
+  opacity: 1; /* Show on pre hover */
+}
+.copy-code-button:hover,
+.copy-code-button:focus-visible {
+  opacity: 1;
+  background-color: #555; /* Darken on hover */
+  color: #fff;
+}
+.copy-code-button:disabled {
+  opacity: 0.9; cursor: default;
+  background-color: light-dark(var(--light-primary), var(--dark-primary)); 
+  color: light-dark(var(--light-button-text), var(--dark-button-text));
+  border-color: transparent;
+}
+
+.status-message {
+  text-align: center;
+  padding: 8px 0; /* More padding */
+  font-size: 0.9em;
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  min-height: 1.2em; 
+  display: none; 
+  transition: opacity 0.3s ease;
+}
+
+.input-area {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end; /* Align items to bottom for dynamic textarea height */
+  margin-top: auto; 
+  padding-top: 15px; 
+  border-top: 1px solid light-dark(var(--light-border), var(--dark-border));
+}
+
+.input-area textarea {
+  flex-grow: 1;
+  padding: 12px 18px; /* More padding */
+  border: 1px solid light-dark(var(--light-border), var(--dark-border));
+  border-radius: 22px; /* Softer, larger radius */
+  font-family: inherit;
+  font-size: 1rem; /* Slightly larger font */
+  background-color: light-dark(var(--light-surface), var(--dark-surface)); 
+  color: light-dark(var(--light-text-primary), var(--dark-text-primary));
+  resize: none; 
+  line-height: 1.5; /* Improved line height for readability */
+  min-height: calc(1rem * 1.5 + 24px); /* min-height based on one line of text */
+  max-height: 150px; /* Increased max height */
+  overflow-y: hidden; /* Start with hidden, show scroll on overflow */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.input-area textarea:focus {
+  outline: none;
+  border-color: light-dark(var(--light-primary), var(--dark-primary));
+  box-shadow: 0 0 0 3px light-dark(var(--light-focus-shadow-color), var(--dark-focus-shadow-color));
+  background-color: light-dark(var(--light-surface), var(--dark-bg)); /* Subtle bg change on focus */
+}
+
+.input-area button {
+  background-color: light-dark(var(--light-primary), var(--dark-primary));
+  color: light-dark(var(--light-button-text), var(--dark-button-text));
+  padding: 0; /* Padding handled by svg size and button dimensions */
+  width: 44px; /* Square button */
+  height: 44px;
+  border: none;
+  border-radius: 50%; /* Circular button */
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0; /* Prevent button from shrinking */
+}
+.input-area button svg {
+  width: 22px; height: 22px;
+  fill: currentColor;
+}
+
+.input-area button:hover:not(:disabled) {
+  background-color: light-dark(var(--light-primary-hover), var(--dark-primary-hover));
+  box-shadow: 0 2px 5px rgba(var(--shadow-color-rgb), light-dark(0.1, 0.2));
+}
+.input-area button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+.input-area button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px light-dark(var(--light-button-focus-shadow-color), var(--dark-button-focus-shadow-color));
+}
+.input-area button:disabled {
+  background-color: light-dark(var(--light-disabled-bg), var(--dark-disabled-bg));
+  color: light-dark(var(--light-disabled-text), var(--dark-disabled-text));
+  cursor: not-allowed;
+  box-shadow: none;
+}
+.input-area button:disabled svg {
+  fill: light-dark(var(--light-disabled-text), var(--dark-disabled-text));
+}
+
+
+footer {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid light-dark(var(--light-border), var(--dark-border));
+  color: light-dark(var(--light-text-secondary), var(--dark-text-secondary));
+  font-size: 0.85em;
+  text-align: center;
+}
+footer p { margin-bottom: 0; }
+
+.visually-hidden {
+  position: absolute !important; height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; border: 0;
+}
